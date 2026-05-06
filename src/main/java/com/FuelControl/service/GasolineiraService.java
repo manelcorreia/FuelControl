@@ -1,5 +1,7 @@
 package com.FuelControl.service;
 
+import com.FuelControl.model.NaoHaCombustivelNomeException;
+import com.FuelControl.model.NaoHaGasolineiraNomeException;
 import lombok.RequiredArgsConstructor;
 import com.FuelControl.model.BaseDadosMemoria;
 import com.FuelControl.model.Gasolineira;
@@ -30,11 +32,11 @@ public class GasolineiraService {
                     bomba.setGasoleoAditivado(novoPreco);
                     return "Novo preço Gasoleo Aditivado: " + novoPreco;
                 } else {
-                    return "Não temos esse tipo de combustível. Tente Gasolina simples, Gasolina 98, Gasoleo Simples ou Gasoleo Aditivado.";
+                    throw new NaoHaCombustivelNomeException("Não há nenhum combustível com esse nome. Tente Gasolina simples, gasolina 98, gasoleo simples ou gasoleo aditivado");
                 }
             }
         }
-        return "Erro: A gasolineira '" + nomeGasolineira + "' não foi encontrada.";
+        throw new NaoHaGasolineiraNomeException("Não há nenhuma gasolineira com o nome " + nomeGasolineira);
     }
 
     public String listarTodosPrecos(String nomeGasolineira) {
@@ -45,6 +47,6 @@ public class GasolineiraService {
                 return "Gasolina 95: " + bomba.getPrecoGasolina95() + "\nGasolina 98: " + bomba.getPrecoGasolina98() + "\nGasoleo Simples: " + bomba.getGasoleoSimples() + "\nGasoleo Aditivado: " + bomba.getGasoleoAditivado();
             }
         }
-        return "Erro: Não foi encontrada nenhuma gasolineira com o nome " + nomeGasolineira;
+        throw new NaoHaGasolineiraNomeException("Não há nenhuma gasolineira com o nome " + nomeGasolineira);
     }
 }

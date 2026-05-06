@@ -1,8 +1,6 @@
 package com.FuelControl.service;
 
-import com.FuelControl.model.BaseDadosMemoria;
-import com.FuelControl.model.Desconto;
-import com.FuelControl.model.Gasolineira;
+import com.FuelControl.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +25,7 @@ public class DescontoService {
         }
 
         if (!bombaExiste) {
-            return "Erro: Não foi encontrada nenhuma bomba com esse nome.";
+            throw new NaoHaGasolineiraNomeException("Não há nenhuma gasolineira com o nome " + nomeGasolineira);
         }
 
         StringBuilder resultado = new StringBuilder();
@@ -46,7 +44,7 @@ public class DescontoService {
         }
 
         if (!temDesconto) {
-            return "Nenhum desconto encontrado na bomba " + nomeGasolineira;
+            throw new NaoTemDescontoException("Nenhum desconto encontrado na bomba " + nomeGasolineira);
         }
 
         return resultado.toString();
