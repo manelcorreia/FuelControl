@@ -1,9 +1,8 @@
 package com.FuelControl.service;
 
-import com.FuelControl.model.NaoHaCombustivelNomeException;
 import com.FuelControl.model.NaoHaGasolineiraNomeException;
+import com.FuelControl.repository.GasolineiraRepository;
 import lombok.RequiredArgsConstructor;
-import com.FuelControl.model.BaseDadosMemoria;
 import com.FuelControl.model.Gasolineira;
 import org.springframework.stereotype.Service;
 
@@ -12,41 +11,26 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GasolineiraService {
-    private final BaseDadosMemoria baseDadosMemoria;
+    private final GasolineiraRepository gasolineiraRepository;
 
-    public String mudarPrecoCombustivel(String nomeGasolineira, String nomeCombustivel, double novoPreco) {
-        List<Gasolineira> gasolineiras = baseDadosMemoria.getGasolineiras();
+    public List<Gasolineira> verTodasPorNome(String nomeGasolineira) {
+        List<Gasolineira> gasolineiras = gasolineiraRepository.findAllByNomeIgnoreCase(nomeGasolineira);
 
-        for (Gasolineira bomba : gasolineiras) {
-            if (bomba.getNome().equalsIgnoreCase(nomeGasolineira)) {
-                if (nomeCombustivel.equalsIgnoreCase("Gasolina simples")) {
-                    bomba.setPrecoGasolina95(novoPreco);
-                    return "Novo preço Gasolina Simples: " + novoPreco;
-                } else if (nomeCombustivel.equalsIgnoreCase("Gasolina 98")) {
-                    bomba.setPrecoGasolina98(novoPreco);
-                    return "Novo preço Gasolina 98: " + novoPreco;
-                } else if (nomeCombustivel.equalsIgnoreCase("Gasoleo Simples")) {
-                    bomba.setGasoleoSimples(novoPreco);
-                    return "Novo preço Gasoleo Simples: " + novoPreco;
-                } else if (nomeCombustivel.equalsIgnoreCase("Gasoleo Aditivado")) {
-                    bomba.setGasoleoAditivado(novoPreco);
-                    return "Novo preço Gasoleo Aditivado: " + novoPreco;
-                } else {
-                    throw new NaoHaCombustivelNomeException("Não há nenhum combustível com esse nome. Tente Gasolina simples, gasolina 98, gasoleo simples ou gasoleo aditivado");
-                }
-            }
+        if (gasolineiras.isEmpty()) {
+            throw new NaoHaGasolineiraNomeException("Erro: Não há gasolineiras com o nome " + nomeGasolineira);
+        } else {
+            return gasolineiras;
         }
-        throw new NaoHaGasolineiraNomeException("Não há nenhuma gasolineira com o nome " + nomeGasolineira);
     }
 
-    public String listarTodosPrecos(String nomeGasolineira) {
-        List<Gasolineira> gasolineiras = baseDadosMemoria.getGasolineiras();
+    public String verTodosOsPrecos(String nomeGasolineira) {
+        Gasolineira bomba = gasolineiraRepository.findFirstByNomeIgnoreCase(nomeGasolineira)
+                .orElseThrow(() -> new NaoHaGasolineiraNomeException("Erro: Não há gasolineiras com o nome " + nomeGasolineira));
 
-        for (Gasolineira bomba : gasolineiras) {
-            if (bomba.getNome().equalsIgnoreCase(nomeGasolineira)) {
-                return "Gasolina 95: " + bomba.getPrecoGasolina95() + "\nGasolina 98: " + bomba.getPrecoGasolina98() + "\nGasoleo Simples: " + bomba.getGasoleoSimples() + "\nGasoleo Aditivado: " + bomba.getGasoleoAditivado();
-            }
-        }
-        throw new NaoHaGasolineiraNomeException("Não há nenhuma gasolineira com o nome " + nomeGasolineira);
+        return "--- " + nomeGasolineira + " ---\n" +
+                "- Gasolina 95: " + bomba.getPrecoGasolina95() + "\n" +
+                "- Gasolina 98: " + bomba.getPrecoGasolina98() + "\n" +
+                "- Gasoleo Simples: " + bomba.getGasoleoSimples() +"\n" +
+                "- Gasoleo Aditivado: " + bomba.getGasoleoAditivado();
     }
 }
