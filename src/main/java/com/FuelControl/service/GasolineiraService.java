@@ -1,9 +1,8 @@
 package com.FuelControl.service;
 
-import com.FuelControl.model.NaoHaGasolineiraNomeException;
+import com.FuelControl.model.*;
 import com.FuelControl.repository.GasolineiraRepository;
 import lombok.RequiredArgsConstructor;
-import com.FuelControl.model.Gasolineira;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +31,115 @@ public class GasolineiraService {
                 "- Gasolina 98: " + bomba.getPrecoGasolina98() + "\n" +
                 "- Gasoleo Simples: " + bomba.getGasoleoSimples() +"\n" +
                 "- Gasoleo Aditivado: " + bomba.getGasoleoAditivado();
+    }
+
+    public List<Gasolineira> verTodasPorRegiao(String nomeRegiao) {
+        List<Gasolineira> bombas = gasolineiraRepository.findAllByRegiaoIgnoreCase(nomeRegiao);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraRegiaoException("Não há gasolineiras nessa região");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verTodasPorLocalidade(String nomeLocalidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.findAllByLocalidadeIgnoreCase(nomeLocalidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraLocalidadeException("Não há gasolineiras nessa localidade");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verTodasComPostoCarregamento() {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasComPostoDeCarregamento();
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaBombasComCarregadorException("Não há gasolineiras com posto de carregamento");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verRegiaoPostoCarregamento(String nomeRegiao) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasComPostoCarregamentoNaRegiao(nomeRegiao);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaBombasComCarregadorException("Não há bombas com carregador na região " + nomeRegiao);
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verLocalidadePostoCarregamento(String nomeLocalidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasComPostoCarregamentoNaLocalidade(nomeLocalidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaBombasComCarregadorException("Não há gasolineiras com posto de carregamento na localidade " + nomeLocalidade);
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verGasolineiraPorNomePorRegiao(String nome, String regiao) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaRegiao(nome, regiao);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraRegiaoException("Não há gasolineiras com o nome " + nome + " na região " + regiao);
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verGasolineiraPorNomePorLocalidade(String nome, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaLocalidade(nome, localidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraLocalidadeException("Erro: Não há gasolineiras com o nome " + nome + " na localidade " + localidade);
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verGasolineiraPorNomePorRegiaoPorLocalidade(String nome, String regiao, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaRegiaoNaLocalidade(nome, regiao, localidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraLocalidadeException("Erro: Não há gasolineiras com o nome " + nome + " na localidade " + localidade + " na região " + regiao);
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> procurarTodasBombasGasolina95AbaixoDeXPreco(double preco) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasGasolina95AbaixoDeXPreco(preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há nenhuma bomba com gasolina 95 abaixo desse preço (" + preco + ")");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> procurarTodasBombasNaRegiaoGasolina95AbaixoDeXPreco(double preco, String regiao) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasNaRegiaoGasolina95AbaixoDeXPreco(regiao, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas na região " + regiao + " com gasolina 95 abaixo desse preço (" + preco + ")");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> procurarTodasBombasNaLocalidadeGasolina95AbaixoDeXPreco(double preco, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasNaLocalidadeGasolina95AbaixoXPreco(localidade, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas na região " + localidade + " com gasolina 95 abaixo desse preço (" + preco + ")");
+        } else {
+            return bombas;
+        }
     }
 }
