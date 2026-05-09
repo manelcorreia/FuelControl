@@ -48,6 +48,16 @@ public class GasolineiraController {
         return gasolineiraService.verLocalidadePostoCarregamento(nomeLocalidade);
     }
 
+    @GetMapping("/posto-carregamento/regiao-{nomeRegiao}/localidade-{nomeLocalidade}")
+    public List<Gasolineira> verPorRegiaoPorLocalidadePostoCarregamento(@PathVariable String nomeRegiao, @PathVariable String nomeLocalidade) {
+        return gasolineiraService.verBombasNumaLocalidadeDumaRegiaoCPostoCarregamento(nomeRegiao, nomeLocalidade);
+    }
+
+    @GetMapping("/posto-carregamento/{nomeGasolineira}/regiao-{nomeRegiao}/localidade-{nomeLocalidade}")
+    public List<Gasolineira> verPorNomeNaLocalidadeDRegiaoPostoCarregamento(@PathVariable String nomeGasolineira, @PathVariable String nomeRegiao, @PathVariable String nomeLocalidade) {
+        return gasolineiraService.verBombasPorNomeNumaLocalidadeDRegiaoCPostoCarregamento(nomeGasolineira, nomeRegiao, nomeLocalidade);
+    }
+
     @GetMapping("/{nomeGasolineira}/regiao-{nomeRegiao}")
     public List<Gasolineira> verPorNomeNaRegiao(@PathVariable String nomeGasolineira, @PathVariable String nomeRegiao) {
         return gasolineiraService.verGasolineiraPorNomePorRegiao(nomeGasolineira, nomeRegiao);
@@ -76,5 +86,10 @@ public class GasolineiraController {
     @GetMapping("/localidade-{localidade}/combustivel/gasolina95/abaixo-{preco}")
     public List<Gasolineira> porLocalidadeGasolina95AbaixoXPreco(@PathVariable String localidade, @PathVariable double preco) {
         return gasolineiraService.procurarTodasBombasNaLocalidadeGasolina95AbaixoDeXPreco(preco, localidade);
+    }
+
+    @GetMapping("/regiao-{regiao}/localidade-{localidade}/gasolina95/abaixo-{preco}")
+    public List<Gasolineira> verPorLocalidadeNaRegiaoGasolina95AbaixoXPreco(@PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarBombasNaRegiaoNumaLocalidadeGasolina95AbaixoDeXPreco(regiao, localidade, preco);
     }
 }

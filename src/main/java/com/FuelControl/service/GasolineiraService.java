@@ -83,6 +83,26 @@ public class GasolineiraService {
         }
     }
 
+    public List<Gasolineira> verBombasNumaLocalidadeDumaRegiaoCPostoCarregamento(String regiao, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasNaRegiaoNumaLocalidadeComPostoCarregamento(regiao, localidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaBombasComCarregadorException("Erro: Não há bombas na localidade " + localidade + " da região " + regiao + " com posto de carregamento");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> verBombasPorNomeNumaLocalidadeDRegiaoCPostoCarregamento(String nome, String regiao, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaLocalidadeDRegiaoCPostoCarregamento(nome, regiao, localidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaBombasComCarregadorException("Erro: Não há bombas " + nome + " na localidade " + localidade + " da região " + regiao + " com posto de carregamento");
+        } else {
+            return bombas;
+        }
+    }
+
     public List<Gasolineira> verGasolineiraPorNomePorRegiao(String nome, String regiao) {
         List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaRegiao(nome, regiao);
 
@@ -138,6 +158,16 @@ public class GasolineiraService {
 
         if (bombas.isEmpty()) {
             throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas na região " + localidade + " com gasolina 95 abaixo desse preço (" + preco + ")");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> procurarBombasNaRegiaoNumaLocalidadeGasolina95AbaixoDeXPreco(String regiao, String localidade, double preco) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasNaRegiaoNumaLocalidadeGasolina95AbaixoXPreco(regiao, localidade, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas na localidade " + localidade + " da região " + regiao + " com gasolina 95 abaixo de " + preco);
         } else {
             return bombas;
         }
