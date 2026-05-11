@@ -143,11 +143,31 @@ public class GasolineiraService {
         }
     }
 
+    public List<Gasolineira> procurarPorNomeGasolina95AbaixoXPreco(String nome, double preco) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeGasolinaAbaixoXPreco(nome, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há nenhuma bomba " + nome + " com gasolina 95 abaixo de " + preco);
+        } else {
+            return bombas;
+        }
+    }
+
     public List<Gasolineira> procurarTodasBombasNaRegiaoGasolina95AbaixoDeXPreco(double preco, String regiao) {
         List<Gasolineira> bombas = gasolineiraRepository.procurarBombasNaRegiaoGasolina95AbaixoDeXPreco(regiao, preco);
 
         if (bombas.isEmpty()) {
             throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas na região " + regiao + " com gasolina 95 abaixo desse preço (" + preco + ")");
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> procurarPorNomeNaRegiaoGasolina95AbaixoXPreco(String nome, String regiao, double preco) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaRegiaoGasolina95AbaixoXPreco(nome, regiao, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas " + nome + " na região " + regiao + " abaixo de " + preco);
         } else {
             return bombas;
         }
@@ -163,11 +183,31 @@ public class GasolineiraService {
         }
     }
 
+    public List<Gasolineira> procurarPorNomeNaLocalidadeGasolina95AbaixoXPreco(String nome, String localidade, double preco) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarBombasPorNomeNaLocalidadeGasolina95AbaixoXPreco(nome, localidade, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas " + nome + " na localidade " + localidade + " abaixo de " + preco);
+        } else {
+            return bombas;
+        }
+    }
+
     public List<Gasolineira> procurarBombasNaRegiaoNumaLocalidadeGasolina95AbaixoDeXPreco(String regiao, String localidade, double preco) {
         List<Gasolineira> bombas = gasolineiraRepository.procurarBombasNaRegiaoNumaLocalidadeGasolina95AbaixoXPreco(regiao, localidade, preco);
 
         if (bombas.isEmpty()) {
             throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas na localidade " + localidade + " da região " + regiao + " com gasolina 95 abaixo de " + preco);
+        } else {
+            return bombas;
+        }
+    }
+
+    public List<Gasolineira> procurarPorNomeNumaLocalidadeDumaRegiaoGasolina95AbaixoXPreco(String nome, String regiao, String localidade, double preco) {
+        List<Gasolineira> bombas = gasolineiraRepository.procurarPorNomeNumaLocalidadeDumaRegiaoGasolina95AbaixoXPreco(nome, regiao, localidade, preco);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaCombustivelAbaixoPrecoException("Erro: Não há bombas " + nome + " na localidade " + localidade + " da região " + regiao + " abaixo de " + preco);
         } else {
             return bombas;
         }

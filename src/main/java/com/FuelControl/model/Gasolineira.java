@@ -22,6 +22,6 @@ public class Gasolineira {
     private double gasoleoSimples;
     private double gasoleoAditivado;
     private boolean postoCarregamento = false;
-    private String regiao = "Lisboa";
-    private String localidade = "Cascais";
+    private String regiao;
+    private String localidade;
 }
