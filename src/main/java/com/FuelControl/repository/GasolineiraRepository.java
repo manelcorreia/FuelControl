@@ -65,4 +65,76 @@ public interface GasolineiraRepository extends JpaRepository<Gasolineira, Intege
 
     @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.localidade = :localidade AND g.precoGasolina95 < preco")
     List<Gasolineira> procurarPorNomeNumaLocalidadeDumaRegiaoGasolina95AbaixoXPreco(String nome, String regiao, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.precoGasolina98 < :preco")
+    List<Gasolineira> procurarBombasGasolina98AbaixoDeXPreco(double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.precoGasolina98 < preco")
+    List<Gasolineira> procurarBombasPorNomeGasolina98AbaixoXPreco(String nome, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.regiao = :regiao AND g.precoGasolina98 < :preco")
+    List<Gasolineira> procurarBombasNaRegiaoGasolina98AbaixoDeXPreco(String regiao, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.precoGasolina98 < :preco")
+    List<Gasolineira> procurarBombasPorNomeNaRegiaoGasolina98AbaixoXPreco(String nome, String regiao, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.localidade = :localidade AND g.precoGasolina98 < :preco")
+    List<Gasolineira> procurarBombasNaLocalidadeGasolina98AbaixoXPreco(String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.localidade = :localidade AND g.precoGasolina98 < :preco")
+    List<Gasolineira> procurarBombasPorNomeNaLocalidadeGasolina98AbaixoXPreco(String nome, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira WHERE g.regiao = :regiao AND g.localidade = :localidade AND g.precoGasolina98 < :preco")
+    List<Gasolineira> procurarBombasNaRegiaoNumaLocalidadeGasolina98AbaixoXPreco(String regiao, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.localidade = :localidade AND g.precoGasolina98 < preco")
+    List<Gasolineira> procurarPorNomeNumaLocalidadeDumaRegiaoGasolina98AbaixoXPreco(String nome, String regiao, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.gasoleoSimples < :preco")
+    List<Gasolineira> procurarBombasGasoleoSimplesAbaixoDeXPreco(double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.gasoleoSimples < preco")
+    List<Gasolineira> procurarBombasPorNomeGasoleoSimplesAbaixoXPreco(String nome, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.regiao = :regiao AND g.gasoleoSimples < :preco")
+    List<Gasolineira> procurarBombasNaRegiaoGasoleoSimplesAbaixoDeXPreco(String regiao, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.gasoleoSimples < :preco")
+    List<Gasolineira> procurarBombasPorNomeNaRegiaoGasoleoSimplesAbaixoXPreco(String nome, String regiao, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.localidade = :localidade AND g.gasoleoSimples < :preco")
+    List<Gasolineira> procurarBombasNaLocalidadeGasoleoSimplesAbaixoXPreco(String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.localidade = :localidade AND g.gasoleoSimples < :preco")
+    List<Gasolineira> procurarBombasPorNomeNaLocalidadeGasoleoSimplesAbaixoXPreco(String nome, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira WHERE g.regiao = :regiao AND g.localidade = :localidade AND g.gasoleoSimples < :preco")
+    List<Gasolineira> procurarBombasNaRegiaoNumaLocalidadeGasoleoSimplesAbaixoXPreco(String regiao, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.localidade = :localidade AND g.gasoleoSimples < preco")
+    List<Gasolineira> procurarPorNomeNumaLocalidadeDumaRegiaoGasoleoSimplesAbaixoXPreco(String nome, String regiao, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.gasoleoAditivado < :preco")
+    List<Gasolineira> procurarBombasGasoleoAditivadoAbaixoDeXPreco(double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.gasoleoAditivado < preco")
+    List<Gasolineira> procurarBombasPorNomeGasoleoAditivadoAbaixoXPreco(String nome, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.regiao = :regiao AND g.gasoleoAditivado < :preco")
+    List<Gasolineira> procurarBombasNaRegiaoGasoleoAditivadoAbaixoDeXPreco(String regiao, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.gasoleoAditivado < :preco")
+    List<Gasolineira> procurarBombasPorNomeNaRegiaoGasoleoAditivadoAbaixoXPreco(String nome, String regiao, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.localidade = :localidade AND g.gasoleoAditivado < :preco")
+    List<Gasolineira> procurarBombasNaLocalidadeGasoleoAditivadoAbaixoXPreco(String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.localidade = :localidade AND g.gasoleoAditivado < :preco")
+    List<Gasolineira> procurarBombasPorNomeNaLocalidadeGasoleoAditivadoAbaixoXPreco(String nome, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira WHERE g.regiao = :regiao AND g.localidade = :localidade AND g.gasoleoAditivado < :preco")
+    List<Gasolineira> procurarBombasNaRegiaoNumaLocalidadeGasoleoAditivadoAbaixoXPreco(String regiao, String localidade, double preco);
+
+    @Query("SELECT g FROM Gasolineira g WHERE g.nome = :nome AND g.regiao = :regiao AND g.localidade = :localidade AND g.gasoleoAditivado < preco")
+    List<Gasolineira> procurarPorNomeNumaLocalidadeDumaRegiaoGasoleoAditivadoAbaixoXPreco(String nome, String regiao, String localidade, double preco);
 }

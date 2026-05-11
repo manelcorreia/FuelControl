@@ -112,4 +112,125 @@ public class GasolineiraController {
     public List<Gasolineira> porNomeNaLocalidadeDumaRegiaoGasolina95AbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
         return gasolineiraService.procurarPorNomeNumaLocalidadeDumaRegiaoGasolina95AbaixoXPreco(nome, regiao, localidade, preco);
     }
+
+    @GetMapping("/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> todasBombasComGasolina98AbaixoXPreco(@PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasGasolina98AbaixoDeXPreco(preco);
+    }
+
+    @GetMapping("/{nome}/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> porNomeGasolina98AbaixoXPreco(@PathVariable String nome, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeGasolina98AbaixoXPreco(nome, preco);
+    }
+
+    @GetMapping("/regiao-{regiao}/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> porRegiaoGasolina98AbaixoXPreco(@PathVariable String regiao, @PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasNaRegiaoGasolina98AbaixoDeXPreco(preco, regiao);
+    }
+
+    @GetMapping("/{nome}/regiao-{regiao}/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaRegiaoGasolina98AbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNaRegiaoGasolina98AbaixoXPreco(nome, regiao, preco);
+    }
+
+    @GetMapping("/localidade-{localidade}/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> porLocalidadeGasolina98AbaixoXPreco(@PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasNaLocalidadeGasolina98AbaixoDeXPreco(preco, localidade);
+    }
+
+    @GetMapping("/{nome}/localidade-{localidade}/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaLocalidadeGasolina98AbaixoXPreco(@PathVariable String nome, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNaLocalidadeGasolina98AbaixoXPreco(nome, localidade, preco);
+    }
+
+    @GetMapping("/regiao-{regiao}/localidade-{localidade}/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> verPorLocalidadeNaRegiaoGasolina98AbaixoXPreco(@PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarBombasNaRegiaoNumaLocalidadeGasolina98AbaixoDeXPreco(regiao, localidade, preco);
+    }
+
+    @GetMapping("/{nome}/regiao-{regiao}/localidade-{localidade}/combustivel/gasolina98/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaLocalidadeDumaRegiaoGasolina98AbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNumaLocalidadeDumaRegiaoGasolina98AbaixoXPreco(nome, regiao, localidade, preco);
+    }
+
+    @GetMapping("/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> todasBombasComGasoleoSimplesAbaixoXPreco(@PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasGasoleoSimplesAbaixoDeXPreco(preco);
+    }
+
+    @GetMapping("/{nome}/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> porNomeGasoleoSimplesAbaixoXPreco(@PathVariable String nome, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeGasoleoSimplesAbaixoXPreco(nome, preco);
+    }
+
+    @GetMapping("/regiao-{regiao}/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> porRegiaoGasoleoSimplesAbaixoXPreco(@PathVariable String regiao, @PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasNaRegiaoGasoleoSimplesAbaixoDeXPreco(preco, regiao);
+    }
+
+    @GetMapping("/{nome}/regiao-{regiao}/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaRegiaoGasoleoSimplesAbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNaRegiaoGasoleoSimplesAbaixoXPreco(nome, regiao, preco);
+    }
+
+    @GetMapping("/localidade-{localidade}/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> porLocalidadeGasoleoSimplesAbaixoXPreco(@PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasNaLocalidadeGasoleoSimplesAbaixoDeXPreco(preco, localidade);
+    }
+
+    @GetMapping("/{nome}/localidade-{localidade}/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaLocalidadeGasoleoSimplesAbaixoXPreco(@PathVariable String nome, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNaLocalidadeGasoleoSimplesAbaixoXPreco(nome, localidade, preco);
+    }
+
+    @GetMapping("/regiao-{regiao}/localidade-{localidade}/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> verPorLocalidadeNaRegiaoGasoleoSimplesAbaixoXPreco(@PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarBombasNaRegiaoNumaLocalidadeGasoleoSimplesAbaixoDeXPreco(regiao, localidade, preco);
+    }
+
+    @GetMapping("/{nome}/regiao-{regiao}/localidade-{localidade}/combustivel/gasoleo-simples/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaLocalidadeDumaRegiaoGasoleoSimplesAbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNumaLocalidadeDumaRegiaoGasoleoSimplesAbaixoXPreco(nome, regiao, localidade, preco);
+    }
+
+
+    @GetMapping("/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> todasBombasComGasoleoSimplesGasoleoAditivadoAbaixoXPreco(@PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasGasoleoAditivadoAbaixoDeXPreco(preco);
+    }
+
+    @GetMapping("/{nome}/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> porNomeGasoleoAditivadoAbaixoXPreco(@PathVariable String nome, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeGasoleoAditivadoAbaixoXPreco(nome, preco);
+    }
+
+    @GetMapping("/regiao-{regiao}/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> porRegiaoGasoleoAditivadoAbaixoXPreco(@PathVariable String regiao, @PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasNaRegiaoGasoleoAditivadoAbaixoDeXPreco(preco, regiao);
+    }
+
+    @GetMapping("/{nome}/regiao-{regiao}/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaRegiaoGasoleoAditivadoAbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNaRegiaoGasoleoAditivadoAbaixoXPreco(nome, regiao, preco);
+    }
+
+    @GetMapping("/localidade-{localidade}/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> porLocalidadeGasoleoAditivadoAbaixoXPreco(@PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarTodasBombasNaLocalidadeGasoleoAditivadoAbaixoDeXPreco(preco, localidade);
+    }
+
+    @GetMapping("/{nome}/localidade-{localidade}/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaLocalidadeGasoleoAditivadoAbaixoXPreco(@PathVariable String nome, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNaLocalidadeGasoleoAditivadoAbaixoXPreco(nome, localidade, preco);
+    }
+
+    @GetMapping("/regiao-{regiao}/localidade-{localidade}/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> verPorLocalidadeNaRegiaoGasoleoAditivadoAbaixoXPreco(@PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarBombasNaRegiaoNumaLocalidadeGasoleoAditivadoAbaixoDeXPreco(regiao, localidade, preco);
+    }
+
+    @GetMapping("/{nome}/regiao-{regiao}/localidade-{localidade}/combustivel/gasoleo-aditivado/abaixo-{preco}")
+    public List<Gasolineira> porNomeNaLocalidadeDumaRegiaoGasoleoAditivadoAbaixoXPreco(@PathVariable String nome, @PathVariable String regiao, @PathVariable String localidade, @PathVariable double preco) {
+        return gasolineiraService.procurarPorNomeNumaLocalidadeDumaRegiaoGasoleoAditivadoAbaixoXPreco(nome, regiao, localidade, preco);
+    }
 }
