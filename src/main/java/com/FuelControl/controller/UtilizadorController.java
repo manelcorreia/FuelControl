@@ -33,4 +33,39 @@ public class UtilizadorController {
     public String apagarDesconto(@PathVariable Integer utilizadorId, @PathVariable Integer descontoId) {
         return utilizadorService.apagarMeuDesconto(utilizadorId, descontoId);
     }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/nomeCartao-{nomeCartao}")
+    public List<Desconto> verTodosPorNomeCartao(@PathVariable Integer utilizadorId, @PathVariable String nomeCartao) {
+        return utilizadorService.verTodosPorNomeCartao(utilizadorId, nomeCartao);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/tipoDesconto-{tipoDesconto}")
+    public List<Desconto> verTodosPorTipoDesconto(@PathVariable Integer utilizadorId, @PathVariable String tipoDesconto) {
+        return utilizadorService.verTodosPorTipoDesconto(utilizadorId, tipoDesconto);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/valorDesconto={valorDesconto}")
+    public List<Desconto> verTodosPorValorDesconto(@PathVariable Integer utilizadorId, @PathVariable double valorDesconto) {
+        return utilizadorService.verTodosPorValorDesconto(utilizadorId, valorDesconto);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/nomeGasolineira-{nomeGasolineira}")
+    public List<Desconto> verTodosPorNomeGasolineira(@PathVariable Integer utilizadorId, @PathVariable String nomeGasolineira) {
+        return utilizadorService.verTodosDescontosPorNomeGasolineira(utilizadorId, nomeGasolineira);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/tipo_desconto-{tipoDesconto}/bomba-{nomeGasolineira}")
+    public List<Desconto> verDescontoPorUtilizadorPorTipoPorGasolineira(@PathVariable Integer utilizadorId, @PathVariable String tipoDesconto, @PathVariable String nomeGasolineira) {
+        return utilizadorService.verPorUtilizadorTipoGasolineira(utilizadorId, tipoDesconto, nomeGasolineira);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/valorDesconto>{valor}")
+    public List<Desconto> verDescontosPorUtilizadorDescontoMaiorQueX(@PathVariable Integer utilizadorId, @PathVariable double valor) {
+        return utilizadorService.verPorUtilizadorDescontoMaiorQueX(utilizadorId, valor);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/valorDesconto>{valor}/bomba-{gasolineira}")
+    public List<Desconto> verDescontosPorUtilizadorDescontoMaiorQueXNaGasolineira(@PathVariable Integer utilizadorId, @PathVariable double valor, @PathVariable String gasolineira) {
+        return utilizadorService.verPorUtilizadorDescontoMaiorQueXNaGasolineira(utilizadorId, valor, gasolineira);
+    }
 }

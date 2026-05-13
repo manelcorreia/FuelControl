@@ -16,8 +16,8 @@ public class Desconto {
     private Integer id;
 
     private String nomeCartao; // cartão pingo doce, cartão sócio benfica, etc
-    private String tipo; // acumulativo no cartão, desconto direto, etc
-    private double desconto;
+    private String tipoDesconto; // acumulativo no cartão, desconto direto, etc
+    private double valorDesconto;
     private String nomeGasolineira;
 
     @ManyToOne

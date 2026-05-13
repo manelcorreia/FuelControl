@@ -29,9 +29,9 @@ public class UtilizadorService {
         Desconto desconto = new Desconto();
         desconto.setUtilizador(utilizador);
         desconto.setNomeCartao(nomeCartao);
-        desconto.setTipo(tipo);
+        desconto.setTipoDesconto(tipo);
         desconto.setNomeGasolineira(nomeGasolineira);
-        desconto.setDesconto(valor);
+        desconto.setValorDesconto(valor);
 
         return descontoRepository.save(desconto);
     }
@@ -53,5 +53,75 @@ public class UtilizadorService {
 
         descontoRepository.delete(desconto);
         return "Desconto apagado com sucesso da tua carteira";
+    }
+
+    public List<Desconto> verTodosPorNomeCartao(Integer utilizadorId, String nomeCartao) {
+        List<Desconto> descontos = descontoRepository.findAllByUtilizadorIdAndNomeCartaoIgnoreCase(utilizadorId, nomeCartao);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos na carteira do cartão " + nomeCartao);
+        } else {
+            return descontos;
+        }
+    }
+
+    public List<Desconto> verTodosPorTipoDesconto(Integer utilizadorId, String tipoDesconto) {
+        List<Desconto> descontos = descontoRepository.findAllByUtilizadorIdAndTipoDescontoIgnoreCase(utilizadorId, tipoDesconto);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos do tipo " + tipoDesconto);
+        } else {
+            return descontos;
+        }
+    }
+
+    public List<Desconto> verTodosPorValorDesconto(Integer utilizadorId, double valorDesconto) {
+        List<Desconto> descontos = descontoRepository.findAllByUtilizadorIdAndValorDesconto(utilizadorId, valorDesconto);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos de valor " + valorDesconto);
+        } else {
+            return descontos;
+        }
+    }
+
+    public List<Desconto> verTodosDescontosPorNomeGasolineira(Integer utilizadorId, String nomeGasolineira) {
+        List<Desconto> descontos = descontoRepository.findAllByUtilizadorIdAndNomeGasolineiraIgnoreCase(utilizadorId, nomeGasolineira);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos da bomba " + nomeGasolineira);
+        } else {
+            return descontos;
+        }
+    }
+
+    public List<Desconto> verPorUtilizadorTipoGasolineira(Integer utilizadorId, String tipo, String gasolineira) {
+        List<Desconto> descontos = descontoRepository.verDescontoPorUtilizadorTipoNomeGasolineira(utilizadorId, tipo, gasolineira);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos do tipo " + tipo + " para a bomba " + gasolineira);
+        } else {
+            return descontos;
+        }
+    }
+
+    public List<Desconto> verPorUtilizadorDescontoMaiorQueX(Integer utilizadorId, double valor) {
+        List<Desconto> descontos = descontoRepository.verDescontosPorUtilizadorDescontoMaiorQueX(utilizadorId, valor);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos de valor maior que " + valor);
+        } else {
+            return descontos;
+        }
+    }
+
+    public List<Desconto> verPorUtilizadorDescontoMaiorQueXNaGasolineira(Integer utilizadorId, double valor, String nomeGasolineira) {
+        List<Desconto> descontos = descontoRepository.verDescontosPorUtilizadorDescontoMaiorQueXNaGasolineira(utilizadorId, valor, nomeGasolineira);
+
+        if (descontos.isEmpty()) {
+            throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos maiores que " + valor + " na bomba " + nomeGasolineira);
+        } else {
+            return descontos;
+        }
     }
 }
