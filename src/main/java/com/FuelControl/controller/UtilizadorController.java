@@ -68,4 +68,19 @@ public class UtilizadorController {
     public List<Desconto> verDescontosPorUtilizadorDescontoMaiorQueXNaGasolineira(@PathVariable Integer utilizadorId, @PathVariable double valor, @PathVariable String gasolineira) {
         return utilizadorService.verPorUtilizadorDescontoMaiorQueXNaGasolineira(utilizadorId, valor, gasolineira);
     }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/regiao-{regiao}")
+    public List<Desconto> verDescontosPorUtilizadorNaRegiao(@PathVariable Integer utilizadorId, @PathVariable String regiao) {
+        return utilizadorService.verPorRegiaoQueBombasEDescontosTenhoNaCarteira(utilizadorId, regiao);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/localidade-{localidade}")
+    public List<Desconto> verDescontosPorUtilizadorNaLocalidade(@PathVariable Integer utilizadorId, @PathVariable String localidade) {
+        return utilizadorService.verPorLocalidadeQueBombasEDescontosTenhoNaCarteira(utilizadorId, localidade);
+    }
+
+    @GetMapping("/{utilizadorId}/carteira-descontos/regiao-{regiao}/localidade-{localidade}")
+    public List<Desconto> verDescontosPorUtilizadorNaLocalidadeDumaRegiao(@PathVariable Integer utilizadorId, @PathVariable String regiao, @PathVariable String localidade) {
+        return utilizadorService.verPorLocalidadeNaRegiaoQueBombasEDescontosTenhoNaCarteira(utilizadorId, regiao, localidade);
+    }
 }

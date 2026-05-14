@@ -18,6 +18,8 @@ public interface GasolineiraRepository extends JpaRepository<Gasolineira, Intege
 
     List<Gasolineira> findAllByLocalidadeIgnoreCase(String nome);
 
+    List<Gasolineira> findAllByLocalidadeAndRegiaoIgnoreCase(String localidade, String regiao);
+
     @Query("SELECT g FROM Gasolineira g WHERE g.postoCarregamento = true")
     List<Gasolineira> procurarBombasComPostoDeCarregamento();
 

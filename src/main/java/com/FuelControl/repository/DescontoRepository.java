@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface DescontoRepository extends JpaRepository<Desconto, Integer> {
+    List<Desconto> findAllByUtilizadorId(Integer utilizadorId);
+
     List<Desconto> findAllByUtilizadorIdAndNomeCartaoIgnoreCase(Integer utilizadorId, String nomeCartao);
 
     List<Desconto> findAllByUtilizadorIdAndTipoDescontoIgnoreCase(Integer utilizadorId, String tipoDesconto);

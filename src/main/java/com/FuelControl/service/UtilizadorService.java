@@ -2,6 +2,7 @@ package com.FuelControl.service;
 
 import com.FuelControl.model.*;
 import com.FuelControl.repository.DescontoRepository;
+import com.FuelControl.repository.GasolineiraRepository;
 import com.FuelControl.repository.UtilizadorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 public class UtilizadorService {
     private final UtilizadorRepository utilizadorRepository;
     private final DescontoRepository descontoRepository;
+    private final GasolineiraRepository gasolineiraRepository;
 
     public Utilizador criarNovoUtilizador(String nome, String email) {
         Utilizador novoUtilizador = new Utilizador();
@@ -122,6 +124,60 @@ public class UtilizadorService {
             throw new NaoTemDescontoException("Erro: Utilizador " + utilizadorId + " não tem descontos maiores que " + valor + " na bomba " + nomeGasolineira);
         } else {
             return descontos;
+        }
+    }
+
+    public List<Desconto> verPorRegiaoQueBombasEDescontosTenhoNaCarteira(Integer utilizadorId, String regiao) {
+        List<Gasolineira> bombas = gasolineiraRepository.findAllByRegiaoIgnoreCase(regiao);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraRegiaoException("Erro: Não há bombas na região " + regiao);
+        } else {
+            List<String> marcasNessaRegiao = bombas.stream()
+                    .map(Gasolineira::getNome) // extrai o nome de cada bomba
+                    .toList(); // guarda tudo numa lista de strings
+
+            List<Desconto> todosMeusDescontos = descontoRepository.findAllByUtilizadorId(utilizadorId);
+
+            return todosMeusDescontos.stream()
+                    .filter(desconto -> marcasNessaRegiao.contains(desconto.getNomeGasolineira()))
+                    .toList();
+        }
+    }
+
+    public List<Desconto> verPorLocalidadeQueBombasEDescontosTenhoNaCarteira(Integer utilizadorId, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.findAllByLocalidadeIgnoreCase(localidade);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraLocalidadeException("Erro: Não há bombas na localidade " + localidade);
+        } else {
+            List<String> marcasBombasNaLocalidade = bombas.stream()
+                    .map(Gasolineira::getNome)
+                    .toList();
+
+            List<Desconto> todosMeusDescontos = descontoRepository.findAllByUtilizadorId(utilizadorId);
+
+            return todosMeusDescontos.stream()
+                    .filter(desconto -> marcasBombasNaLocalidade.contains(desconto.getNomeGasolineira()))
+                    .toList();
+        }
+    }
+
+    public List<Desconto> verPorLocalidadeNaRegiaoQueBombasEDescontosTenhoNaCarteira(Integer utilizadorId, String regiao, String localidade) {
+        List<Gasolineira> bombas = gasolineiraRepository.findAllByLocalidadeAndRegiaoIgnoreCase(localidade, regiao);
+
+        if (bombas.isEmpty()) {
+            throw new NaoHaGasolineiraLocalidadeException("Erro: Não há bombas na localidade " + localidade + " da região " + regiao);
+        } else {
+            List<String> marcasBombasNaLocalidadeRegiao = bombas.stream()
+                    .map(Gasolineira::getNome)
+                    .toList();
+
+            List<Desconto> todosMeusDescontos = descontoRepository.findAllByUtilizadorId(utilizadorId);
+
+            return todosMeusDescontos.stream()
+                    .filter(desconto -> marcasBombasNaLocalidadeRegiao.contains(desconto.getNomeGasolineira()))
+                    .toList();
         }
     }
 }
